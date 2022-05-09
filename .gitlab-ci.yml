@@ -4,7 +4,7 @@ stages:
 
 build-docker-image:
   stage: pre-deploy
-  image: debian:buster
+  image: ubuntu:jammy
   services:
     - docker:dind
   variables:
