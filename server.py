@@ -1,6 +1,7 @@
+import json
 from flask import Flask, request
 from recommend import KNNModel
-import json
+
 
 app = Flask(__name__)
 model = KNNModel()
@@ -9,7 +10,6 @@ model = KNNModel()
 def recommend():
     ids = json.loads(request.args.get("recommend_on"))
     exceptions = json.loads(request.args.get("movie_exceptions"))
-    
     recommendations = []
     if len(ids) > 0:
         recommendations = model.recommend_on_ids(ids[0], exceptions)

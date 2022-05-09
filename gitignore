@@ -1,0 +1,4 @@
+/__pychache__
+/.pytest_cache
+/tests/__pychache__
+/tests/.pytest_cache
