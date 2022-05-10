@@ -82,7 +82,8 @@ class KNNModel:
     def exceprions_to_ids(self, exceptions):
         ids = []
         for i in exceptions:
-            ids.append(self.movies_df[self.movies_df['id'] == i].index[0])
+            if len(self.movies_df[self.movies_df['id'] == i]) > 0:
+                ids.append(self.movies_df[self.movies_df['id'] == i].index[0])
         return ids
 
     def recommend_on_ids(self, movie_id, exceptions):
