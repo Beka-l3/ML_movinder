@@ -41,7 +41,6 @@ def get_movie_df():
 class CountModel:
     def __init__(self):
         self.movies_df = get_movie_df()
-        # self.count_vectorizer = CountVectorizer(analyzer='word',ngram_range=(1, 2),min_df=0, stop_words='english')
         self.count_vectorizer = CountVectorizer(analyzer='word', stop_words='english')
         self.count_matrix = self.count_vectorizer.fit_transform(self.movies_df['soup'])
         self.top = [str(id['_id']) for id in get_top_movies()]
@@ -87,6 +86,8 @@ class KNNModel:
         return ids
 
     def recommend_on_ids(self, movie_id, exceptions):
+        if len(self.movies_df[self.movies_df.id == movie_id]) == 0:
+            return []
         exception_ids = self.exceprions_to_ids(exceptions+[movie_id])
         user_count = self.count_vectorizer.transform([self.movies_df[self.movies_df.id == movie_id]['soup'].iloc[0]])
         KNN = NearestNeighbors(n_neighbors = 100, p = 2)

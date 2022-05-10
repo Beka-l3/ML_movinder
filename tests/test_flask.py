@@ -71,3 +71,12 @@ def test_404_request(client):
     response = client.get('/', query_string = data)
 
     assert response.status_code == 404
+
+def test_no_movie_request(client):
+    data = {
+    'recommend_on': json.dumps(['627409384d03615407b7']),
+    'movie_exceptions': json.dumps(['62740938459a7d03615407b7'])}
+
+    response = client.get('/get_recommendation', query_string = data)
+
+    assert response.status_code == 404

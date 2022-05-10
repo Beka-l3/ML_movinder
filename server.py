@@ -1,5 +1,5 @@
 import json
-from flask import Flask, request
+from flask import Flask, request, abort
 from recommend import KNNModel
 
 
@@ -15,7 +15,8 @@ def recommend():
         recommendations = model.recommend_on_ids(ids[0], exceptions)
     else:
         recommendations = model.recommend_top(exceptions)
-
+    if len(recommendations) == 0:
+        abort(404, description="Movie not found")
     return json.dumps(recommendations)
 
 if __name__ == "__main__":
